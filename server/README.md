@@ -43,13 +43,19 @@ $ npm run test:cov
 2. `npm i`
 3. Clonar el archivo `.env.template` y renombrarlo a `.env`
 4. Cambiar las variables de entorno
-5. Levantar la DB
+5. Descargar imágen de Docker(esto se hace solo una vez)
+
+```
+docker pull postgres:15.3
+```
+
+6. Levantar la DB
 
 ```
 docker compose up -d
 ```
 
-6. Levantar server: `npm run start:dev`
+7. Levantar server: `npm run start:dev`
 <!-- 7. Ejecutar SEED:
 
 ````
