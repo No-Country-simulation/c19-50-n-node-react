@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnvConfiguration } from './config/app.config';
 import { JoiSchemaValidation } from './config/joi.schemaValidation';
 import { CommonModule } from './common/common.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -28,6 +29,8 @@ import { CommonModule } from './common/common.module';
     }),
 
     CommonModule,
+
+    PostsModule,
   ],
 })
 export class AppModule {}
