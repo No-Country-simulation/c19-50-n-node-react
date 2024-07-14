@@ -31,6 +31,19 @@ export class PostsController {
     }
   }
 
+  @Get('/pagination')
+  pagination() {
+    // try {
+    //   return this.postsService.findAll();
+    // } catch (error: any) {
+    //   throw new HttpException(
+    //     'server error',
+    //     HttpStatus.INTERNAL_SERVER_ERROR,
+    //     { cause: error },
+    //   );
+    // }
+  }
+
   @Get(':id')
   findOne(
     @Param(
