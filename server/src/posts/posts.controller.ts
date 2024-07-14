@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -73,6 +74,25 @@ export class PostsController {
   ) {
     try {
       return this.postsService.update(id, updatePostDTO);
+    } catch (error: any) {
+      throw new HttpException(
+        'server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        { cause: error },
+      );
+    }
+  }
+
+  @Delete(':id')
+  delete(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    try {
+      return this.postsService.delete(id);
     } catch (error: any) {
       throw new HttpException(
         'server error',

@@ -27,4 +27,8 @@ export class PostsService {
   async update(id: number, postDTO: UpdatePostDTO) {
     return await this.postsRepository.update(id, postDTO);
   }
+
+  async delete(id: number) {
+    return await this.postsRepository.delete(id);
+  }
 }
