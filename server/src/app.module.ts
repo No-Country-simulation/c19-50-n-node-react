@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnvConfiguration } from './config/app.config';
 import { JoiSchemaValidation } from './config/joi.schemaValidation';
+import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 
 @Module({
@@ -26,7 +27,7 @@ import { CommonModule } from './common/common.module';
         synchronize: configService.get<string>('NODE_ENV') !== 'prod', // synchronize se establece en true solo si NODE_ENV no es 'prod'
       }),
     }),
-
+    AuthModule,
     CommonModule,
   ],
 })
