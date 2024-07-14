@@ -12,6 +12,14 @@ export class PostsService {
     private postsRepository: Repository<Posts>,
   ) {}
 
+  async findAll() {
+    return await this.postsRepository.find();
+  }
+
+  async findOne(id: number) {
+    return await this.postsRepository.findOneBy({ id });
+  }
+
   async create(postDTO: CreatePostDTO) {
     return await this.postsRepository.save(postDTO);
   }

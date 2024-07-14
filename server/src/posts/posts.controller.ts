@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Param,
@@ -15,6 +16,38 @@ import { UpdatePostDTO } from './dtos/update.dto';
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) {}
+
+  @Get()
+  findAll() {
+    try {
+      return this.postsService.findAll();
+    } catch (error: any) {
+      throw new HttpException(
+        'server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        { cause: error },
+      );
+    }
+  }
+
+  @Get(':id')
+  findOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    try {
+      return this.postsService.findOne(id);
+    } catch (error: any) {
+      throw new HttpException(
+        'server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        { cause: error },
+      );
+    }
+  }
 
   @Post()
   create(@Body() createPostDTO: CreatePostDTO) {
