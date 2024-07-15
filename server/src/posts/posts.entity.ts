@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Category, Geo } from './types';
+import { Categories } from 'src/categories/categories.entity';
 
 @Entity('posts')
 export class Posts {
@@ -15,11 +22,15 @@ export class Posts {
   @Column('text')
   content: string;
 
-  @Column({
-    type: 'enum',
-    enum: Category,
-  })
-  category: Category;
+  // @Column({
+  //   type: 'enum',
+  //   enum: Category,
+  // })
+  // category: Category;
+
+  @ManyToOne(() => Categories, (category) => category.posts)
+  @JoinColumn({ name: 'category_id' })
+  category: Categories;
 
   @Column('int')
   price: number;

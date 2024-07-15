@@ -22,10 +22,13 @@ export class UpdatePostDTO {
   @IsString()
   content: string;
 
+  // @IsOptional()
+  // @Transform(({ value }) => value.toLowerCase())
+  // @IsEnum(Category)
+  // category: Category;
   @IsOptional()
-  @Transform(({ value }) => value.toLowerCase())
-  @IsEnum(Category)
-  category: Category;
+  @IsNumber()
+  category: number;
 
   @IsOptional()
   @IsNumber()
