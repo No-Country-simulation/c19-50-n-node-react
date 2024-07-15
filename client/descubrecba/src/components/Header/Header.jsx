@@ -7,7 +7,10 @@ export const Header = () => {
 
   //Funciones para Navegar
   const handleOnClickHome = () => {
-    navigate('/home')
+    navigate('/home');
+  }
+  const handleOnClickLogin = () => {
+    navigate('/login');
   }
   
   return (
@@ -16,7 +19,7 @@ export const Header = () => {
         <Navbar.Brand>DescubreCBA</Navbar.Brand>
           <Nav className="d-flex flex-row justify-content-around">
             <Nav.Link onClick={handleOnClickHome} className='text-light m-2'>Inicio</Nav.Link>
-            <Nav.Link className='text-light m-2'>Usuarios</Nav.Link>
+            <Nav.Link onClick={handleOnClickLogin}className='text-light m-2'>Login</Nav.Link>
             <Nav.Link className='text-light m-2'>Búsqueda</Nav.Link>
           </Nav>
       </Container>

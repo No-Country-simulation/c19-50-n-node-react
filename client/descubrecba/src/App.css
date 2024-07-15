@@ -5,6 +5,9 @@
 }
 
 .main-content {
-  flex: 1;
+  display: flex;
   min-height:300px;
+  margin: 0 100px 0 100px;
+  align-items: center;
+  justify-content: center;
 }
