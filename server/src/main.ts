@@ -17,14 +17,19 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS PostgreSQL TypeORM Boilerplate')
+    .addBearerAuth()
+    .setTitle('DescubreCórdoba API')
     .setDescription(
-      'Boilerplate API description and endpoints for starting projects with NestJS, PostgreSQL, and TypeORM',
+      'La API de Descubre Córdoba proporciona una serie de endpoints para explorar y descubrir los puntos de interés, eventos, y servicios disponibles en la ciudad de Córdoba. ' +
+        'Utiliza esta API para acceder a información detallada sobre lugares turísticos, actividades culturales y mucho más. ' +
+        'Los endpoints están diseñados para ser intuitivos y fáciles de usar, ofreciendo respuestas en formatos JSON que facilitan la integración con aplicaciones móviles y web.',
     )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  app.enableCors({});
 
   await app.listen(process.env.PORT);
   logger.log(`App running on port: ${process.env.PORT}`);
