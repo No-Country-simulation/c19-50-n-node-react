@@ -5,6 +5,8 @@ import { EnvConfiguration } from './config/app.config';
 import { JoiSchemaValidation } from './config/joi.schemaValidation';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
+import { PostsModule } from './posts/posts.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -29,6 +31,10 @@ import { CommonModule } from './common/common.module';
     }),
     AuthModule,
     CommonModule,
+
+    PostsModule,
+
+    CategoriesModule,
   ],
 })
 export class AppModule {}
