@@ -11,7 +11,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Category, Geo } from '../types';
+import { Geo } from '../types';
 
 export class CreatePostDTO {
   @IsNotEmpty()
@@ -22,10 +22,6 @@ export class CreatePostDTO {
   @IsString()
   content: string;
 
-  // @IsNotEmpty()
-  // @Transform(({ value }) => value.toLowerCase())
-  // @IsEnum(Category)
-  // category: Category;
   @IsNotEmpty()
   @IsNumber()
   category: number;

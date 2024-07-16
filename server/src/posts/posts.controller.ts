@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpException,
@@ -9,6 +10,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDTO } from './dtos/create.dto';
@@ -32,16 +34,21 @@ export class PostsController {
   }
 
   @Get('/pagination')
-  pagination() {
-    // try {
-    //   return this.postsService.findAll();
-    // } catch (error: any) {
-    //   throw new HttpException(
-    //     'server error',
-    //     HttpStatus.INTERNAL_SERVER_ERROR,
-    //     { cause: error },
-    //   );
-    // }
+  pagination(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    try {
+      return this.postsService.paginate({ page, limit });
+    } catch (error: any) {
+      throw new HttpException(
+        'server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        { cause: error },
+      );
+    }
   }
 
   @Get(':id')

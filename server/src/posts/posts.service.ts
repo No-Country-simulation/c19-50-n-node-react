@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreatePostDTO } from './dtos/create.dto';
 import { UpdatePostDTO } from './dtos/update.dto';
 import { Categories } from 'src/categories/categories.entity';
+import { IPaginationOptions, paginate as p } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class PostsService {
@@ -17,6 +18,16 @@ export class PostsService {
 
   async findAll() {
     return await this.postsRepository.find({ relations: ['category'] });
+  }
+
+  async paginate(options: IPaginationOptions) {
+    const queryBuilder = this.postsRepository.createQueryBuilder('c');
+
+    queryBuilder
+      .leftJoinAndSelect('c.category', 'category')
+      .orderBy('c.created_at', 'DESC');
+
+    return await p(queryBuilder, options);
   }
 
   async findOne(id: number) {

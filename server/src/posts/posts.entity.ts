@@ -1,11 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Category, Geo } from './types';
+import { Geo } from './types';
 import { Categories } from 'src/categories/categories.entity';
 
 @Entity('posts')
@@ -22,12 +23,6 @@ export class Posts {
   @Column('text')
   content: string;
 
-  // @Column({
-  //   type: 'enum',
-  //   enum: Category,
-  // })
-  // category: Category;
-
   @ManyToOne(() => Categories, (category) => category.posts)
   @JoinColumn({ name: 'category_id' })
   category: Categories;
@@ -43,6 +38,9 @@ export class Posts {
 
   @Column('json')
   geo: Geo;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   // TODO:
   // @Column()
