@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -31,10 +32,9 @@ import { CategoriesModule } from './categories/categories.module';
     }),
     AuthModule,
     CommonModule,
-
     PostsModule,
-
     CategoriesModule,
+    FavoritesModule,
   ],
 })
 export class AppModule {}
