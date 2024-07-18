@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Geo } from './types';
+import { Geo } from './types/posts.types';
 import { Categories } from 'src/categories/categories.entity';
 
 @Entity('posts')

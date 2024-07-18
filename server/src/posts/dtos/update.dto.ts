@@ -1,17 +1,14 @@
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
   IsDateString,
-  IsDefined,
-  IsEnum,
-  IsNotEmpty,
-  IsNotEmptyObject,
   IsNumber,
-  IsObject,
   IsOptional,
   IsString,
-  ValidateNested,
+  Max,
+  Min,
+  Validate,
 } from 'class-validator';
-import { Geo } from '../types';
+import { IsGeoPair } from '../validators/geo.validators';
 
 export class UpdatePostDTO {
   @IsOptional()
@@ -24,33 +21,36 @@ export class UpdatePostDTO {
 
   @IsOptional()
   @IsNumber()
+  @Type(() => Number)
   category: number;
 
   @IsOptional()
   @IsNumber()
+  @Type(() => Number)
   price: number;
-
-  // TODO:
-  @IsOptional()
-  image: string;
 
   @IsOptional()
   @IsDateString()
   date: Date;
 
   @IsOptional()
-  @IsObject()
-  @IsNotEmptyObject()
-  @ValidateNested()
-  @Type(() => Geo)
-  geo: Geo;
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  @Type(() => Number)
+  latitude: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  @Type(() => Number)
+  longitude: number;
 
   @IsOptional()
   @IsString()
   address: string;
 
-  // TODO:
-  // @IsOptional()
-  // @IsNumber()
-  // provider: number;
+  @Validate(IsGeoPair)
+  geoPairCheck: any;
 }

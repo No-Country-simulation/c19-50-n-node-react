@@ -11,7 +11,9 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDTO } from './dtos/create.dto';
@@ -19,6 +21,7 @@ import { UpdatePostDTO } from './dtos/update.dto';
 import { RoleProtected } from 'src/auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('posts')
 export class PostsController {
@@ -77,9 +80,17 @@ export class PostsController {
   @Post()
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
-  create(@Body() createPostDTO: CreatePostDTO) {
+  @UseInterceptors(FileInterceptor('image'))
+  async create(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() createPostDTO: CreatePostDTO,
+  ) {
     try {
-      return this.postsService.create(createPostDTO);
+      if (!image) {
+        throw new Error('File is required');
+      }
+
+      return this.postsService.create(createPostDTO, image);
     } catch (error: any) {
       throw new HttpException(
         'server error',
@@ -92,16 +103,18 @@ export class PostsController {
   @Put(':id')
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @Param(
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
+    @UploadedFile() image: Express.Multer.File,
     @Body() updatePostDTO: UpdatePostDTO,
   ) {
     try {
-      return this.postsService.update(id, updatePostDTO);
+      return this.postsService.update(id, updatePostDTO, image);
     } catch (error: any) {
       throw new HttpException(
         'server error',

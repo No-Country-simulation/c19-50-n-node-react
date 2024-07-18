@@ -1,16 +1,12 @@
 import { Type } from 'class-transformer';
 import {
   IsDateString,
-  IsDefined,
   IsNotEmpty,
-  IsNotEmptyObject,
   IsNumber,
-  IsObject,
-  IsOptional,
   IsString,
-  ValidateNested,
+  Max,
+  Min,
 } from 'class-validator';
-import { Geo } from '../types';
 
 export class CreatePostDTO {
   @IsNotEmpty()
@@ -23,33 +19,33 @@ export class CreatePostDTO {
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   category: number;
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   price: number;
-
-  // TODO:
-  @IsOptional()
-  image: string;
 
   @IsNotEmpty()
   @IsDateString()
   date: Date;
 
-  @IsDefined()
-  @IsObject()
-  @IsNotEmptyObject()
-  @ValidateNested()
-  @Type(() => Geo)
-  geo: Geo;
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  @Type(() => Number)
+  latitude: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  @Type(() => Number)
+  longitude: number;
 
   @IsNotEmpty()
   @IsString()
   address: string;
-
-  // TODO:
-  // @IsNotEmpty()
-  // @IsNumber()
-  // provider: number;
 }
