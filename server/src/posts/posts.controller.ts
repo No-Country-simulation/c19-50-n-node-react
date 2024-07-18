@@ -11,10 +11,14 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDTO } from './dtos/create.dto';
 import { UpdatePostDTO } from './dtos/update.dto';
+import { RoleProtected } from 'src/auth/decorators';
+import { AuthGuard } from '@nestjs/passport';
+import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
 
 @Controller('posts')
 export class PostsController {
@@ -71,6 +75,8 @@ export class PostsController {
   }
 
   @Post()
+  @RoleProtected('admin')
+  @UseGuards(AuthGuard(), UserRoleGuard)
   create(@Body() createPostDTO: CreatePostDTO) {
     try {
       return this.postsService.create(createPostDTO);
@@ -84,6 +90,8 @@ export class PostsController {
   }
 
   @Put(':id')
+  @RoleProtected('admin')
+  @UseGuards(AuthGuard(), UserRoleGuard)
   update(
     @Param(
       'id',
@@ -104,6 +112,8 @@ export class PostsController {
   }
 
   @Delete(':id')
+  @RoleProtected('admin')
+  @UseGuards(AuthGuard(), UserRoleGuard)
   delete(
     @Param(
       'id',
