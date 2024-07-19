@@ -69,11 +69,12 @@ export class PostsService {
     }
 
     if (postDTO.category) {
+      console.log(postDTO.category);
       updatedPost.category = await this.categoriesRepository.findOneBy({
         id: postDTO.category,
       });
 
-      if (!category) {
+      if (!updatedPost.category) {
         throw new Error('Category not found');
       }
     }

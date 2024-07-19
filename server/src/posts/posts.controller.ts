@@ -22,7 +22,16 @@ import { RoleProtected } from 'src/auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Posts')
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) {}
@@ -41,6 +50,20 @@ export class PostsController {
   }
 
   @Get('/pagination')
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+    description: 'Página de la paginación',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+    description: 'Límite de elementos por página',
+  })
   pagination(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
@@ -77,10 +100,67 @@ export class PostsController {
     }
   }
 
+  @ApiBearerAuth()
   @Post()
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   @UseInterceptors(FileInterceptor('image'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Create a post',
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          example: 'Taller de Fotografía en las Sierras',
+          description: 'Título de la publicación',
+        },
+        content: {
+          type: 'string',
+          example: 'Únete a nuestro taller práctico de fotografía...',
+          description: 'Contenido de la publicación',
+        },
+        category: {
+          type: 'number',
+          example: 1,
+          description: 'ID de la categoría',
+        },
+        price: {
+          type: 'number',
+          example: 10000,
+          description: 'Precio de la publicación',
+        },
+        date: {
+          type: 'string',
+          example: '2023-10-05',
+          format: 'date',
+          description: 'Fecha de la publicación',
+        },
+        latitude: {
+          type: 'number',
+          example: -31.4212,
+          description: 'Latitud de la ubicación',
+        },
+        longitude: {
+          type: 'number',
+          example: -64.2179,
+          description: 'Longitud de la ubicación',
+        },
+        address: {
+          type: 'string',
+          example: 'Cerro Blanco, Córdoba, Argentina',
+          description: 'Dirección de la publicación',
+        },
+        image: {
+          type: 'string',
+          format: 'binary',
+          description: 'Subir una imagen',
+        },
+      },
+    },
+  })
   async create(
     @UploadedFile() image: Express.Multer.File,
     @Body() createPostDTO: CreatePostDTO,
@@ -100,10 +180,71 @@ export class PostsController {
     }
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   @UseInterceptors(FileInterceptor('image'))
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    description:
+      'Si no quieren editar un campo en particular, borren el contenido del mismo y dejen SIN TILDAR el "Send empty value"!',
+  })
+  @ApiBody({
+    description: 'Actualizar una publicación',
+    required: false,
+    schema: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          example: 'Taller de Fotografía en las Sierras',
+          description: 'Título de la publicación',
+        },
+        content: {
+          type: 'string',
+          example: 'Únete a nuestro taller práctico de fotografía...',
+          description: 'Contenido de la publicación',
+        },
+        category: {
+          type: 'number',
+          example: 1,
+          description: 'ID de la categoría',
+        },
+        price: {
+          type: 'number',
+          example: 10000,
+          description: 'Precio de la publicación',
+        },
+        date: {
+          type: 'string',
+          example: '2023-10-05',
+          format: 'date',
+          description: 'Fecha de la publicación',
+        },
+        latitude: {
+          type: 'number',
+          example: -31.4212,
+          description: 'Latitud de la ubicación',
+        },
+        longitude: {
+          type: 'number',
+          example: -64.2179,
+          description: 'Longitud de la ubicación',
+        },
+        address: {
+          type: 'string',
+          example: 'Cerro Blanco, Córdoba, Argentina',
+          description: 'Dirección de la publicación',
+        },
+        image: {
+          type: 'string',
+          format: 'binary',
+          description: 'Subir una imagen',
+        },
+      },
+    },
+  })
   update(
     @Param(
       'id',
@@ -117,13 +258,14 @@ export class PostsController {
       return this.postsService.update(id, updatePostDTO, image);
     } catch (error: any) {
       throw new HttpException(
-        'server error',
+        'error del servidor',
         HttpStatus.INTERNAL_SERVER_ERROR,
         { cause: error },
       );
     }
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)

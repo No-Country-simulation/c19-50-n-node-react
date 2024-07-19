@@ -17,7 +17,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { CreateCategoryDTO } from './dtos/create.dto';
 import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
 import { UpdateCategoryDTO } from './dtos/update.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Categories')
 @Controller('categories')
 export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
@@ -54,6 +56,7 @@ export class CategoriesController {
     }
   }
 
+  @ApiBearerAuth()
   @Post()
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
@@ -69,6 +72,7 @@ export class CategoriesController {
     }
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
@@ -91,6 +95,7 @@ export class CategoriesController {
     }
   }
 
+  @ApiBearerAuth()
   @Delete(':id')
   @RoleProtected('admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
