@@ -57,7 +57,7 @@ export class PostsController {
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
-    id: number,
+    id: string,
   ) {
     try {
       return this.postsService.findOne(id);
@@ -89,7 +89,7 @@ export class PostsController {
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
-    id: number,
+    id: string,
     @Body() updatePostDTO: UpdatePostDTO,
   ) {
     try {
@@ -109,7 +109,7 @@ export class PostsController {
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
-    id: number,
+    id: string,
   ) {
     try {
       return this.postsService.delete(id);
