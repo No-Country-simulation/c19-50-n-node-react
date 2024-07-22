@@ -6,6 +6,7 @@ import { CreatePostDTO } from './dtos/create.dto';
 import { UpdatePostDTO } from './dtos/update.dto';
 import { Categories } from 'src/categories/categories.entity';
 import { IPaginationOptions, paginate as p } from 'nestjs-typeorm-paginate';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class PostsService {
@@ -14,6 +15,7 @@ export class PostsService {
     private postsRepository: Repository<Posts>,
     @InjectRepository(Categories)
     private categoriesRepository: Repository<Categories>,
+    private cloudinaryService: CloudinaryService,
   ) {}
 
   async findAll() {
@@ -37,7 +39,7 @@ export class PostsService {
     });
   }
 
-  async create(postDTO: CreatePostDTO) {
+  async create(postDTO: CreatePostDTO, image: Express.Multer.File) {
     const category = await this.categoriesRepository.findOneBy({
       id: postDTO.category,
     });
@@ -46,21 +48,40 @@ export class PostsService {
       throw new Error('Category not found');
     }
 
-    return await this.postsRepository.save({ ...postDTO, category });
+    const { latitude, longitude, ...rest } = postDTO;
+    const result = await this.cloudinaryService.uploadFile(image);
+
+    return await this.postsRepository.save({
+      ...rest,
+      category,
+      geo: { latitude, longitude },
+      image: result.url,
+    });
   }
 
-  async update(id: string, postDTO: UpdatePostDTO) {
+  async update(id: string, postDTO: UpdatePostDTO, image: Express.Multer.File) {
     let category: Categories | null;
-    let updatedPost: Partial<Posts> = { ...postDTO, category };
+    const { latitude, longitude, ...rest } = postDTO;
+    let updatedPost: Partial<Posts> = { ...rest, category };
+
+    if (latitude && longitude) {
+      updatedPost.geo = { latitude, longitude };
+    }
 
     if (postDTO.category) {
+      console.log(postDTO.category);
       updatedPost.category = await this.categoriesRepository.findOneBy({
         id: postDTO.category,
       });
 
-      if (!category) {
+      if (!updatedPost.category) {
         throw new Error('Category not found');
       }
+    }
+
+    if (image) {
+      const result = await this.cloudinaryService.uploadFile(image);
+      updatedPost.image = result.url;
     }
 
     return await this.postsRepository.update(id, updatedPost);

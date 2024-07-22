@@ -7,8 +7,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Geo } from './types';
-import { Categories } from '../categories/categories.entity';
+import { Geo } from './types/posts.types';
+import { Categories } from 'src/categories/categories.entity';
 import { Order } from '../orders/entities/order.entity';
 
 @Entity('posts')
