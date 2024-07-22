@@ -18,9 +18,8 @@ export class CreatePostDTO {
   content: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  @Type(() => Number)
-  category: number;
+  @IsString()
+  category: string;
 
   @IsNotEmpty()
   @IsNumber()

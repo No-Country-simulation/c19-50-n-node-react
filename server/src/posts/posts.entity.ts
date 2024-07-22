@@ -4,15 +4,17 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Geo } from './types/posts.types';
 import { Categories } from 'src/categories/categories.entity';
+import { Order } from '../orders/entities/order.entity';
 
 @Entity('posts')
 export class Posts {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;
@@ -45,4 +47,6 @@ export class Posts {
   // TODO:
   // @Column()
   // provider
+  @OneToMany(() => Posts, (posts) => posts.orders)
+  orders: Order[];
 }

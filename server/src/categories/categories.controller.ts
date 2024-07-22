@@ -6,7 +6,6 @@ import {
   HttpException,
   HttpStatus,
   Param,
-  ParseIntPipe,
   Post,
   Put,
   UseGuards,
@@ -39,11 +38,8 @@ export class CategoriesController {
 
   @Get(':id')
   findOne(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
   ) {
     try {
       return this.categoriesService.findOne(id);
@@ -58,7 +54,7 @@ export class CategoriesController {
 
   @ApiBearerAuth()
   @Post()
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   create(@Body() createCategoryDTO: CreateCategoryDTO) {
     try {
@@ -74,14 +70,11 @@ export class CategoriesController {
 
   @ApiBearerAuth()
   @Put(':id')
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   update(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
     @Body() updateCategoryDTO: UpdateCategoryDTO,
   ) {
     try {
@@ -97,14 +90,11 @@ export class CategoriesController {
 
   @ApiBearerAuth()
   @Delete(':id')
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   delete(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
   ) {
     try {
       return this.categoriesService.delete(id);

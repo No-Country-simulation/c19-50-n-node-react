@@ -14,7 +14,7 @@ export class CategoriesService {
     return this.categoriesRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.categoriesRepository.findOne({
       where: { id },
       relations: ['posts'],
@@ -25,11 +25,11 @@ export class CategoriesService {
     return await this.categoriesRepository.save(categoryDTO);
   }
 
-  async update(id: number, postDTO: UpdateCategoryDTO) {
+  async update(id: string, postDTO: UpdateCategoryDTO) {
     return await this.categoriesRepository.update(id, postDTO);
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     return await this.categoriesRepository.delete(id);
   }
 }

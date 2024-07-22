@@ -83,11 +83,8 @@ export class PostsController {
 
   @Get(':id')
   findOne(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
   ) {
     try {
       return this.postsService.findOne(id);
@@ -102,7 +99,7 @@ export class PostsController {
 
   @ApiBearerAuth()
   @Post()
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
@@ -182,7 +179,7 @@ export class PostsController {
 
   @ApiBearerAuth()
   @Put(':id')
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
@@ -246,11 +243,8 @@ export class PostsController {
     },
   })
   update(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
     @UploadedFile() image: Express.Multer.File,
     @Body() updatePostDTO: UpdatePostDTO,
   ) {
@@ -267,14 +261,11 @@ export class PostsController {
 
   @ApiBearerAuth()
   @Delete(':id')
-  @RoleProtected('admin')
+  @RoleProtected('super-user', 'admin')
   @UseGuards(AuthGuard(), UserRoleGuard)
   delete(
-    @Param(
-      'id',
-      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
-    )
-    id: number,
+    @Param('id')
+    id: string,
   ) {
     try {
       return this.postsService.delete(id);

@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -32,11 +33,9 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     }),
     AuthModule,
     CommonModule,
-
     PostsModule,
-
     CategoriesModule,
-
+    OrdersModule,
     CloudinaryModule,
   ],
 })

@@ -20,9 +20,8 @@ export class UpdatePostDTO {
   content: string;
 
   @IsOptional()
-  @IsNumber()
-  @Type(() => Number)
-  category: number;
+  @IsString()
+  category: string;
 
   @IsOptional()
   @IsNumber()

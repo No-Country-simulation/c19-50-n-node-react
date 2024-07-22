@@ -32,7 +32,7 @@ export class PostsService {
     return await p(queryBuilder, options);
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.postsRepository.findOne({
       where: { id },
       relations: ['category'],
@@ -59,7 +59,7 @@ export class PostsService {
     });
   }
 
-  async update(id: number, postDTO: UpdatePostDTO, image: Express.Multer.File) {
+  async update(id: string, postDTO: UpdatePostDTO, image: Express.Multer.File) {
     let category: Categories | null;
     const { latitude, longitude, ...rest } = postDTO;
     let updatedPost: Partial<Posts> = { ...rest, category };
@@ -87,7 +87,7 @@ export class PostsService {
     return await this.postsRepository.update(id, updatedPost);
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     return await this.postsRepository.delete(id);
   }
 }
