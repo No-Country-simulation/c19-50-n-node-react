@@ -3,9 +3,11 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity({
   name: 'users',
@@ -93,7 +95,8 @@ export class User {
   })
   roles: string[];
 
-  // Relations
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @BeforeInsert()
   checkFieldsBeforeInsert() {
