@@ -1,8 +1,9 @@
+import { Button } from '@/components/ui/button';
+
 const HomePage = () => {
   return (
-    <div className="">
-      <h1>¡BIENVENIDOS!</h1>
-      <p className="m-2">soy la pagina inicial</p>
+    <div className="h-full flex justify-center items-center">
+      <Button>Button</Button>
     </div>
   );
 };

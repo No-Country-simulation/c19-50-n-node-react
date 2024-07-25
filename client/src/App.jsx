@@ -1,20 +1,21 @@
-import './App.css'
-import Router from './Router'
-import { Footer } from './components/Footer/Footer';
-import { Header }  from './components/Header/Header';
+import Footer from './components/Footer';
+import Nav from './components/Nav';
+import Router from './Router';
 
 function App() {
   return (
     <>
-      <div className="app-container">
-        <Header /> 
-        <div className="main-content">
-          <Router />
-        </div>
+      <header className="relative">
+        <Nav />
+      </header>
+      <main className="h-screen">
+        <Router />
+      </main>
+      <div className="mt-auto">
         <Footer />
-      </div>    
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
