@@ -1,8 +1,0 @@
-.footer{
-    background-color: #001f3f;
-    color: white;
-    padding: 1rem 0;
-    position: absolute; /* Fija el Footer en la parte inferior */
-  bottom: 0; /* Asegura que esté pegado al fondo */
-  width: 100%; /* Ocupa todo el ancho disponible */
-}
