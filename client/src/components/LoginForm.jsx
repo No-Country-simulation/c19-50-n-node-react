@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
 import {
   Form,
   FormControl,
@@ -17,10 +15,12 @@ import {
 import { Input } from './ui/input';
 import LoadingButton from './LoadingButton';
 import PasswordInput from './PasswordInput';
-
 import { loginSchema } from '@/lib/schemas/loginSchema';
+import { userStore } from '@/store/user';
 
 const LoginForm = () => {
+  const { setUser } = userStore((state) => state);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
@@ -33,7 +33,12 @@ const LoginForm = () => {
 
   const onSubmit = async (values) => {
     setIsLoading(true);
-    console.log(values);
+    setUser({
+      email: values.email,
+      name: 'name',
+      lastName: 'lastName',
+      token: 'token',
+    });
     setIsLoading(false);
   };
 

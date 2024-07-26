@@ -39,7 +39,7 @@ const RegisterForm = () => {
       email: values.email,
       name: values.name,
       lastName: values.lastName,
-      token: 'abc',
+      token: 'token',
     });
     setIsLoading(false);
   };
