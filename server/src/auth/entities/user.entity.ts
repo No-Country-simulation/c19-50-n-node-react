@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../orders/entities/order.entity';
+import { Questions } from 'src/questions/questions.entity';
 
 @Entity({
   name: 'users',
@@ -94,6 +95,9 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @OneToMany(() => Questions, (question) => question.user)
+  questions: Questions[];
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];

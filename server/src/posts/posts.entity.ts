@@ -10,6 +10,7 @@ import {
 import { Geo } from './types/posts.types';
 import { Categories } from 'src/categories/categories.entity';
 import { Order } from '../orders/entities/order.entity';
+import { Questions } from 'src/questions/questions.entity';
 
 @Entity('posts')
 export class Posts {
@@ -49,4 +50,7 @@ export class Posts {
   // provider
   @OneToMany(() => Posts, (posts) => posts.orders)
   orders: Order[];
+
+  @OneToMany(() => Posts, (posts) => posts.questions)
+  questions: Questions[];
 }
