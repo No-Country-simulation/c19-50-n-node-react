@@ -10,6 +10,8 @@ import { RespondQuestionDto } from "./dto/respond-question.dto";
 export class QuestionsService {
     constructor(@InjectRepository(Questions) private questionsRepository: Repository<Questions>) {}
  
+
+    
     async create(question: CreateQuestionDto) {
         try { 
             const newQuestion = this.questionsRepository.create(question);
@@ -20,8 +22,9 @@ export class QuestionsService {
         }
     }
     
+
     async finByPostId(id: string) {
-        return this.questionsRepository.find({
+        return await this.questionsRepository.find({
             where: {postId: id},
             relations: ['user']
         });
@@ -42,22 +45,22 @@ export class QuestionsService {
     }
     
     async findOne(id: string) {
-        return this.questionsRepository.findOne({
+        return await this.questionsRepository.findOne({
             where: {id: id},
             relations: ['user', 'post']
-            });
+        });
     }
         
     
     async update(id: string, response: RespondQuestionDto) {
-        return this.questionsRepository.update(id, {
+        return await this.questionsRepository.update(id, {
             responded_at: new Date(),
             answer: response.answer
         });
     }
 
     async delete(id: string) {
-        return this.questionsRepository.delete(id);
+        return await this.questionsRepository.delete(id);
     }
     
 }

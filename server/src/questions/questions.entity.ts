@@ -10,8 +10,8 @@ export class Questions {
     @Column()
     content: string;
     
-    @Column()
-    answer: string;
+    @Column({nullable: true})
+    answer?: string;
     
     @CreateDateColumn()
     created_at: Date;

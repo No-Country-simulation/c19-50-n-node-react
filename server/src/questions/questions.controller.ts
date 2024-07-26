@@ -1,12 +1,16 @@
-import {Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Patch, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Patch, Post, UseGuards} from '@nestjs/common';
 import { Questions } from './questions.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionsService } from './questions.service';
 import { response } from 'express';
 import { RespondQuestionDto } from './dto/respond-question.dto';
+import { RoleProtected } from 'src/auth/decorators';
+import { AuthGuard } from '@nestjs/passport';
+import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+
 
 @Controller('questions')
 @ApiTags('Questions')
@@ -14,6 +18,9 @@ export class QuestionsController {
 
     constructor(@Inject(QuestionsService) private questionsService: QuestionsService, @InjectRepository(Questions) private questionsRepository: Repository<Questions>) {}
 
+    @ApiBearerAuth()
+    @RoleProtected('user')
+    @UseGuards(AuthGuard(), UserRoleGuard)
     @Post('/')
     async create(@Body() question: CreateQuestionDto) {
         try {
@@ -41,7 +48,6 @@ export class QuestionsController {
         }
     }
 
-    //by post and user
     @Get('/by-post-user/:postId/:userId')
     async finByPostIdUserId(@Param('postId') postId: string, @Param('userId') userId: string) {
        try {
@@ -54,12 +60,15 @@ export class QuestionsController {
     @Get(':id')
     async findOne(@Param('id') id: string) {
         try {
-            return this.questionsService.findOne(id);
+            return await this.questionsService.findOne(id);
         } catch (error: any) {
             throw new HttpException("server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
+    @ApiBearerAuth()
+    @RoleProtected('user')
+    @UseGuards(AuthGuard(), UserRoleGuard)
     @Patch('/respond/:id')
     async respond(@Param('id') id: string, @Body() response: RespondQuestionDto) {
         try {
@@ -69,6 +78,9 @@ export class QuestionsController {
         }
     }
 
+    @ApiBearerAuth()
+    @RoleProtected('user')
+    @UseGuards(AuthGuard(), UserRoleGuard)
     @Delete(':id')
     async answer(@Param('id') id: string) {
         try {
