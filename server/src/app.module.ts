@@ -8,6 +8,8 @@ import { CommonModule } from './common/common.module';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { FavoritesModule } from './favorites/favorites.module';
     PostsModule,
     CategoriesModule,
     FavoritesModule,
+    OrdersModule,
+    CloudinaryModule,
   ],
 })
 export class AppModule {}
