@@ -230,7 +230,7 @@ const RegisterForm = () => {
             type="submit"
             className="w-full mt-5"
           >
-            Registrate
+            Crear
           </LoadingButton>
         </div>
       </form>
