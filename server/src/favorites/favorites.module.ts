@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {Favorites} from "./favotites.entity";
+import {Favorites} from "./favorites.entity";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {FavoritesController} from "./favorites.controller";
 import {FavoritesService} from "./favorites.service";

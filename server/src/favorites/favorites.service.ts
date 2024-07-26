@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {Favorites} from "./favotites.entity";
+import {Favorites} from "./favorites.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CreateFavoriteDto} from "./dto/create-favorite-dto";
@@ -12,28 +12,33 @@ export class FavoritesService {
     async findAll(): Promise<Favorites[]> {
         return await this.favoritesRepository.find();
     }
-    async findOne(id: number): Promise<Favorites> {
+
+    async findOne(userId: string, postId: string): Promise<Favorites> {
         return await this.favoritesRepository.findOne({
-            where: { id }
+            where: { userId, postId }
         })
     }
+
     async create(favorite: CreateFavoriteDto): Promise<Favorites> {
         const newFavorite = this.favoritesRepository.create(favorite);
         return await this.favoritesRepository.save(newFavorite);
     }
-    async delete(id: number): Promise<void> {
-        await this.favoritesRepository.delete(id);
+
+    async delete(userId: string, postId: string): Promise<void> {
+        await this.favoritesRepository.delete({ userId, postId });
     }
-    async findFavoritesByUserId(userId: number): Promise<Favorites[]> {
+
+    async findFavoritesByUserId(userId: string): Promise<Favorites[]> {
         return await this.favoritesRepository.find({
-            where: { userId }
+            where: { userId },
+            relations: ['post']
         })
-        
     }
-    
-    async findFavoritesByPostId(postId: number): Promise<Favorites[]> {
+
+    async findFavoritesByPostId(postId: string): Promise<Favorites[]> {
         return await this.favoritesRepository.find({
-            where: { postId }
+            where: { postId },
+            relations: ['user']
         })
     }
 
