@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Input } from '@/components/ui/input';
+import { Input } from './ui/input';
 import { Eye, EyeOff } from 'lucide-react';
 
 const PasswordInput = (props) => {
