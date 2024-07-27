@@ -4,7 +4,7 @@ import { userStore } from '@/store/user';
 import { Button, buttonVariants } from './ui/button';
 import SearchInput from './SearchInput';
 import { useMediaQuery } from 'react-responsive';
-import { Menu } from 'lucide-react';
+import NavSheet from './NavSheet';
 
 const Nav = () => {
   const { user, removeUser } = userStore((state) => state);
@@ -53,15 +53,13 @@ const Nav = () => {
                     </a>
                   </li>
                   <li>
-                    <Button onClick={removeUser}>Logout</Button>
+                    <Button onClick={removeUser}>Cerrar sesión</Button>
                   </li>
                 </>
               )}
             </ul>
           ) : (
-            <Button variant="outline" className="p-2">
-              <Menu />
-            </Button>
+            <NavSheet />
           )}
         </nav>
       </MaxWidthContainer>
