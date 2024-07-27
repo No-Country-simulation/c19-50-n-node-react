@@ -8,7 +8,7 @@ function App() {
       <header className="relative">
         <Nav />
       </header>
-      <main className="h-screen">
+      <main>
         <Router />
       </main>
       <div className="mt-auto">
