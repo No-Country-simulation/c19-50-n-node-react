@@ -2,16 +2,18 @@ import MaxWidthContainer from './MaxWidthContainer';
 
 import { userStore } from '@/store/user';
 import { Button, buttonVariants } from './ui/button';
+import SearchInput from './SearchInput';
 
 const Nav = () => {
   const { user, removeUser } = userStore((state) => state);
   return (
     <div className="fixed w-full flex justify-center glassmorphism py-3">
       <MaxWidthContainer>
-        <nav className="flex justify-between items-center">
+        <nav className="flex justify-between items-center gap-3">
           <a className="font-bold text-xl" href="/">
             Descubre Cordoba
           </a>
+          <SearchInput />
           <ul className="flex gap-x-3 items-center">
             {!user ? (
               <>
