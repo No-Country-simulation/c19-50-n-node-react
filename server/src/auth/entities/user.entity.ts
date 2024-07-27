@@ -9,6 +9,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../orders/entities/order.entity';
 import { Questions } from 'src/questions/questions.entity';
+import { Favorites } from 'src/favorites/favorites.entity';
 
 @Entity({
   name: 'users',
@@ -101,6 +102,9 @@ export class User {
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => Favorites, (favorites) => favorites.user)
+  favorites: Favorites[];
 
   @BeforeInsert()
   checkFieldsBeforeInsert() {

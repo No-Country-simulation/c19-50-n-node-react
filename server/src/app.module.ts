@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { QuestionsModule } from './questions/questions.module';
+import { FavoritesModule } from './favorites/favorites.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { OrdersModule } from './orders/orders.module';
 
@@ -38,6 +39,7 @@ import { OrdersModule } from './orders/orders.module';
     CategoriesModule,
 
     QuestionsModule,
+    FavoritesModule,
     OrdersModule,
     CloudinaryModule,
   ],
