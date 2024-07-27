@@ -15,9 +15,9 @@ const SearchInput = () => {
     // const formattedQueryString = inputValue.replace(/\s+/g, '-').trim();
 
     if (inputValue.length > 0) {
-      navigate.push(`/search?s=${inputValue}&t=sale`);
+      navigate(`/search?s=${inputValue}&t=sale`);
     } else {
-      navigate.push(`/search?t=sale`);
+      navigate(`/search`);
     }
   };
 
