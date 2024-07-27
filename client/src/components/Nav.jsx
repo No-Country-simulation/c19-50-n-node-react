@@ -14,7 +14,7 @@ const Nav = () => {
   });
 
   return (
-    <div className="fixed w-full flex justify-center glassmorphism py-3">
+    <div className="z-10 fixed w-full flex justify-center glassmorphism py-3">
       <MaxWidthContainer>
         <nav className="flex justify-between items-center gap-3 max-md:gap-10">
           <a className="font-bold text-xl" href="/">
