@@ -10,6 +10,7 @@ import {
 import { Geo } from './types/posts.types';
 import { Categories } from 'src/categories/categories.entity';
 import { Order } from '../orders/entities/order.entity';
+import { Questions } from 'src/questions/questions.entity';
 import { Favorites } from 'src/favorites/favorites.entity';
 
 @Entity('posts')
@@ -51,6 +52,8 @@ export class Posts {
   @OneToMany(() => Posts, (posts) => posts.orders)
   orders: Order[];
 
+  @OneToMany(() => Posts, (posts) => posts.questions)
+  questions: Questions[];
   @OneToMany(() => Favorites, (favorites) => favorites.post)
   favorites: Favorites[];
 }
