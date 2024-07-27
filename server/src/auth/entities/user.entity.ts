@@ -56,13 +56,22 @@ export class User {
   password: string;
 
   @ApiProperty({
-    example: 'Alexis Bazan',
-    description: 'User full name',
+    example: 'Alexis',
+    description: 'User first name',
   })
   @Column({
     type: 'text',
   })
-  fullName: string;
+  firstName: string;
+
+  @ApiProperty({
+    example: 'Bazan',
+    description: 'User last name',
+  })
+  @Column({
+    type: 'text',
+  })
+  lastName: string;
 
   @ApiProperty({
     example: 'https://avatars.githubusercontent.com/u/104113851?v=4',

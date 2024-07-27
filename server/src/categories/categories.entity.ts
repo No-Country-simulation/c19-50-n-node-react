@@ -1,13 +1,22 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Posts } from 'src/posts/posts.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoryName } from './interfaces/categories.interface';
 
 @Entity('categories')
 export class Categories {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  name: string;
+  @ApiProperty({
+    example: CategoryName.TREKKING,
+    description: 'Post Category ',
+  })
+  @Column({
+    type: 'enum',
+    enum: CategoryName,
+  })
+  name: CategoryName;
 
   @OneToMany(() => Posts, (post) => post.category)
   posts: Posts[];

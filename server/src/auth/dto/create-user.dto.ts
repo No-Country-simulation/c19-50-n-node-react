@@ -37,13 +37,22 @@ export class CreateUserDto {
   password: string;
 
   @ApiProperty({
-    example: 'Alexis Bazan',
-    description: 'The full name of the user',
+    example: 'Alexis',
+    description: 'The first name of the user',
   })
   @IsNotEmpty()
   @MinLength(1)
   @IsString()
-  fullName: string;
+  firstName: string;
+
+  @ApiProperty({
+    example: 'Bazan',
+    description: 'The last name of the user',
+  })
+  @IsNotEmpty()
+  @MinLength(1)
+  @IsString()
+  lastName: string;
 
   @ApiProperty({
     example: 'https://avatars.githubusercontent.com/u/104113851?v=4',
