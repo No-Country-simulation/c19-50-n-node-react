@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PostsService } from '../posts/posts.service';
 import { CreateOrderDto, UpdateOrderDto } from './dto';
 import { Order } from './entities/order.entity';
 import { User } from '../auth/entities/user.entity';
@@ -18,13 +19,12 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+    private readonly postService: PostsService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto, user: User) {
     try {
-      const post = await this.orderRepository.findOne({
-        where: { id: createOrderDto.post_id },
-      });
+      const post = await this.postService.findOne(createOrderDto.postId);
 
       if (!post) {
         throw new BadRequestException('Post not found');
@@ -40,6 +40,7 @@ export class OrdersService {
 
       return order;
     } catch (error) {
+      console.log(error);
       this.handleDBExceptions(error);
     }
   }

@@ -15,5 +15,13 @@ export class CreateOrderDto {
   })
   @IsNotEmpty()
   @IsUUID()
-  post_id: string;
+  postId: string;
+
+  @ApiProperty({
+    example: 'b75ad26e-ba27-4237-bbb3-3c5afe93beba',
+    description: 'User ID',
+  })
+  @IsNotEmpty()
+  @IsUUID()
+  userId: string;
 }
