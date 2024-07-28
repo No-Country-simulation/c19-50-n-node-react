@@ -19,9 +19,9 @@ import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionsService } from './questions.service';
 import { response } from 'express';
 import { RespondQuestionDto } from './dto/respond-question.dto';
-import { RoleProtected } from 'src/auth/decorators';
+import { RoleProtected } from '../auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+import { UserRoleGuard } from '../auth/guards/user-role.guard';
 
 @Controller('questions')
 @ApiTags('Questions')

@@ -33,7 +33,7 @@ interface SeedPosts {
 
 interface SeedData {
   users: SeedUser[];
-  posts: SeedPosts[];
+  // posts: SeedPosts[];
   categories: SeedCategories[];
 }
 
@@ -94,20 +94,20 @@ export const initialData: SeedData = {
     },
   ],
   //FIXME:
-  posts: [
-    {
-      userId: '9c2d72af-4c58-4cfa-a8ed-2f897efba0d9',
-      category: 'a5c9b108-fc2b-4a7b-9f3e-b0e741f9d30e',
-      title: 'Excursión a la Montaña',
-      address: '123 Calle Falsa, Ciudad, País',
-      content:
-        'Únete a nuestra emocionante excursión a la montaña. Disfruta de vistas panorámicas y una experiencia inolvidable.',
-      price: 150.0,
-      date: new Date(),
-      latitude: 45.4215, // Latitud en el rango -90 a 90
-      longitude: -75.6972, // Longitud en el rango -180 a 180
-      image: 'https://example.com/images/excursion-montana.jpg',
-      created_at: new Date(),
-    },
-  ],
+  // posts: [
+  //   {
+  //     userId: '9c2d72af-4c58-4cfa-a8ed-2f897efba0d9',
+  //     category: 'a5c9b108-fc2b-4a7b-9f3e-b0e741f9d30e',
+  //     title: 'Excursión a la Montaña',
+  //     address: '123 Calle Falsa, Ciudad, País',
+  //     content:
+  //       'Únete a nuestra emocionante excursión a la montaña. Disfruta de vistas panorámicas y una experiencia inolvidable.',
+  //     price: 150.0,
+  //     date: new Date(),
+  //     latitude: 45.4215, // Latitud en el rango -90 a 90
+  //     longitude: -75.6972, // Longitud en el rango -180 a 180
+  //     image: 'https://example.com/images/excursion-montana.jpg',
+  //     created_at: new Date(),
+  //   },
+  // ],
 };

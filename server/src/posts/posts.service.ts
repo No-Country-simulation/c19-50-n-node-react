@@ -4,9 +4,9 @@ import { Posts } from './posts.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDTO } from './dtos/create.dto';
 import { UpdatePostDTO } from './dtos/update.dto';
-import { Categories } from 'src/categories/categories.entity';
+import { Categories } from '../categories/categories.entity';
 import { IPaginationOptions, paginate as p } from 'nestjs-typeorm-paginate';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class PostsService {
@@ -91,13 +91,14 @@ export class PostsService {
     return await this.postsRepository.delete(id);
   }
 
-  async deleteAllPosts() {
-    const query = this.postsRepository.createQueryBuilder('post');
-    try {
-      return await query.delete().where({}).execute();
-    } catch (error) {
-      console.log(error);
-      throw new BadRequestException();
-    }
-  }
+  //! Not implemented
+  // async deleteAllPosts() {
+  //   const query = this.postsRepository.createQueryBuilder('post');
+  //   try {
+  //     return await query.delete().where({}).execute();
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw new BadRequestException();
+  //   }
+  // }
 }

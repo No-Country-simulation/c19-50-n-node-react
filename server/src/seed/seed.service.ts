@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from '../auth/entities/user.entity';
 import { Categories } from '../categories/categories.entity';
 import { initialData } from './data/seed-data';
-import { PostsService } from '../posts/posts.service';
+// import { PostsService } from '../posts/posts.service';
 
 @Injectable()
 export class SeedService {
@@ -13,18 +13,20 @@ export class SeedService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Categories)
     private readonly categoryRepository: Repository<Categories>,
-    private readonly postService: PostsService,
+    // private readonly postService: PostsService,
   ) {}
   async runSeed() {
     await this.deleteTables();
     const adminUser = await this.insertNewUsers();
     await this.insertNewCategories();
-    await this.insertNewPosts(adminUser);
+    //! Not implemented
+    // await this.insertNewPosts(adminUser);
     return 'Seed Executed!';
   }
 
   private async deleteTables() {
-    await this.postService.deleteAllPosts();
+    //! Not implemented
+    // await this.postService.deleteAllPosts();
 
     const queryBuilder = this.userRepository.createQueryBuilder();
     await queryBuilder.delete().where({}).execute();
@@ -61,17 +63,18 @@ export class SeedService {
     return dbCategory[0];
   }
 
-  private async insertNewPosts(user: User) {
-    await this.postService.deleteAllPosts();
+  //! Not implemented
+  // private async insertNewPosts(user: User) {
+  //   await this.postService.deleteAllPosts();
 
-    const seedPosts = initialData.posts;
+  //   const seedPosts = initialData.posts;
 
-    const insertPromises = [];
+  //   const insertPromises = [];
 
-    seedPosts.forEach((post) => {
-      return this.postService.create(post, null); // o un objeto de tipo `Express.Multer.File`
-    });
+  //   seedPosts.forEach((post) => {
+  //     return this.postService.create(post, null); // o un objeto de tipo `Express.Multer.File`
+  //   });
 
-    await Promise.all(insertPromises);
-  }
+  //   await Promise.all(insertPromises);
+  // }
 }

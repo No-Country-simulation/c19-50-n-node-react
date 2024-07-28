@@ -8,10 +8,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Geo } from './types/posts.types';
-import { Categories } from 'src/categories/categories.entity';
+import { Categories } from '../categories/categories.entity';
 import { Order } from '../orders/entities/order.entity';
-import { Questions } from 'src/questions/questions.entity';
-import { Favorites } from 'src/favorites/favorites.entity';
+import { Questions } from '../questions/questions.entity';
+import { Favorites } from '../favorites/favorites.entity';
 
 @Entity('posts')
 export class Posts {
@@ -27,7 +27,9 @@ export class Posts {
   @Column('text')
   content: string;
 
-  @ManyToOne(() => Categories, (category) => category.posts)
+  @ManyToOne(() => Categories, (category) => category.posts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'category_id' })
   category: Categories;
 
@@ -49,11 +51,13 @@ export class Posts {
   // TODO:
   // @Column()
   // provider
-  @OneToMany(() => Posts, (posts) => posts.orders)
+  @OneToMany(() => Posts, (posts) => posts.orders, { onDelete: 'CASCADE' })
   orders: Order[];
 
-  @OneToMany(() => Posts, (posts) => posts.questions)
+  @OneToMany(() => Posts, (posts) => posts.questions, { onDelete: 'CASCADE' })
   questions: Questions[];
-  @OneToMany(() => Favorites, (favorites) => favorites.post)
+  @OneToMany(() => Favorites, (favorites) => favorites.post, {
+    onDelete: 'CASCADE',
+  })
   favorites: Favorites[];
 }

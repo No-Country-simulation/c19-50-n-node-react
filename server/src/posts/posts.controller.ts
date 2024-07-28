@@ -18,9 +18,9 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDTO } from './dtos/create.dto';
 import { UpdatePostDTO } from './dtos/update.dto';
-import { RoleProtected } from 'src/auth/decorators';
+import { RoleProtected } from '../auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+import { UserRoleGuard } from '../auth/guards/user-role.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,

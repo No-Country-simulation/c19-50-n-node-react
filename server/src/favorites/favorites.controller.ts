@@ -14,9 +14,9 @@ import {
 import { FavoritesService } from './favorites.service';
 import { CreateFavoriteDto } from './dto/create-favorite-dto';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { RoleProtected } from 'src/auth/decorators';
+import { RoleProtected } from '../auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
-import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+import { UserRoleGuard } from '../auth/guards/user-role.guard';
 
 @Controller('favorites')
 @ApiTags('Favorites')

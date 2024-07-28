@@ -11,10 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { RoleProtected } from 'src/auth/decorators';
+import { RoleProtected } from '../auth/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateCategoryDTO } from './dtos/create.dto';
-import { UserRoleGuard } from 'src/auth/guards/user-role.guard';
+import { UserRoleGuard } from '../auth/guards/user-role.guard';
 import { UpdateCategoryDTO } from './dtos/update.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
