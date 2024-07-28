@@ -11,6 +11,7 @@ import { QuestionsModule } from './questions/questions.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { OrdersModule } from './orders/orders.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { OrdersModule } from './orders/orders.module';
     FavoritesModule,
     OrdersModule,
     CloudinaryModule,
+    SeedModule,
   ],
 })
 export class AppModule {}

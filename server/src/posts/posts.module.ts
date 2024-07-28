@@ -3,9 +3,9 @@ import { PostsService } from './posts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Posts } from './posts.entity';
 import { PostsController } from './posts.controller';
-import { Categories } from 'src/categories/categories.entity';
-import { AuthModule } from 'src/auth/auth.module';
-import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { Categories } from '../categories/categories.entity';
+import { AuthModule } from '../auth/auth.module';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -15,5 +15,6 @@ import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
   ],
   providers: [PostsService],
   controllers: [PostsController],
+  exports: [PostsService],
 })
 export class PostsModule {}

@@ -1,23 +1,27 @@
-import {Entity, Column, JoinColumn, PrimaryColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
-import {User} from "../auth/entities/user.entity";
-import {Posts} from "../posts/posts.entity"; 
+import {
+  Entity,
+  Column,
+  JoinColumn,
+  PrimaryColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from '../auth/entities/user.entity';
+import { Posts } from '../posts/posts.entity';
 
 @Entity()
 export class Favorites {
-
-  @PrimaryColumn() 
+  @PrimaryColumn()
   userId: string;
-  
-  @ManyToOne(() => User, (user) => user.favorites)
+
+  @ManyToOne(() => User, (user) => user.favorites, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
-  user: User
-  
+  user: User;
+
   @PrimaryColumn()
   postId: string;
-  
-  @ManyToOne(() => Posts, (post) => post.favorites)
-  @JoinColumn({ name: 'postId' })
-  post: Posts
 
+  @ManyToOne(() => Posts, (post) => post.favorites, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'postId' })
+  post: Posts;
 }
-  
