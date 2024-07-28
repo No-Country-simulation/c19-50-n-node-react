@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Posts } from './posts.entity';
 import { Repository } from 'typeorm';
@@ -89,5 +89,15 @@ export class PostsService {
 
   async delete(id: string) {
     return await this.postsRepository.delete(id);
+  }
+
+  async deleteAllPosts() {
+    const query = this.postsRepository.createQueryBuilder('post');
+    try {
+      return await query.delete().where({}).execute();
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException();
+    }
   }
 }
