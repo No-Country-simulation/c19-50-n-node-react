@@ -3,8 +3,8 @@ import MaxWidthContainer from '@/components/MaxWidthContainer';
 
 const AuthPage = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <MaxWidthContainer className="my-20 flex justify-center">
+    <div className="py-20 min-h-screen flex justify-center items-center">
+      <MaxWidthContainer className="flex justify-center">
         <AuthCard />
       </MaxWidthContainer>
     </div>
