@@ -3,6 +3,8 @@
 import { useLocation } from 'react-router-dom';
 import NavIconLink from './NavIconLink';
 import { Home, Heart } from 'lucide-react';
+import { Button } from './ui/button';
+import { userStore } from '@/store/user';
 
 const LINKS = [
   {
@@ -20,10 +22,12 @@ const LINKS = [
 ];
 
 const ProfileNav = () => {
+  const { removeUser } = userStore((state) => state);
+
   const { pathname } = useLocation();
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between md:items-center">
       <ul className="flex space-x-6 items-center max-md:space-x-4 rounded-md md:px-3 max-md:py-1 border">
         {LINKS.map((link) => (
           <NavIconLink
@@ -40,7 +44,11 @@ const ProfileNav = () => {
           />
         ))}
       </ul>
-      {/* <LogoutButton className="max-sm:hidden" /> */}
+      <div className="flex flex-col">
+        <Button onClick={removeUser} className="flex-grow">
+          Cerrar sesión
+        </Button>
+      </div>
     </div>
   );
 };

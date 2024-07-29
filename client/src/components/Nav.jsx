@@ -1,13 +1,13 @@
 import MaxWidthContainer from './MaxWidthContainer';
 
 import { userStore } from '@/store/user';
-import { Button, buttonVariants } from './ui/button';
+import { buttonVariants } from './ui/button';
 import SearchInput from './SearchInput';
 import { useMediaQuery } from 'react-responsive';
 import NavSheet from './NavSheet';
 
 const Nav = () => {
-  const { user, removeUser } = userStore((state) => state);
+  const { user } = userStore((state) => state);
 
   const bigScreen = useMediaQuery({
     query: '(min-width: 768px)',
@@ -51,9 +51,6 @@ const Nav = () => {
                     >
                       Mi perfil
                     </a>
-                  </li>
-                  <li>
-                    <Button onClick={removeUser}>Cerrar sesión</Button>
                   </li>
                 </>
               )}
