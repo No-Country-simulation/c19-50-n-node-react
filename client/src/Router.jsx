@@ -6,6 +6,8 @@ import ProfilePage from './pages/ProfilePage';
 import SearchPage from './pages/SearchPage';
 import PostPage from './pages/PostPage';
 import ProtectedRoutes from './lib/router/ProtectedRoutes';
+import ProfileCard from './components/ProfileCard';
+import FavoritesList from './components/FavoritesList';
 
 const Router = () => {
   return (
@@ -17,9 +19,8 @@ const Router = () => {
       </Route>
       <Route element={<ProtectedRoutes needsAuth />}>
         <Route path="profile" element={<ProfilePage />}>
-          <Route path="" element={<PostPage />} />
-          <Route path="favorites" element={<PostPage />} />
-          {/* <Route path="/reservations" element={<ProfilePage />} /> */}
+          <Route path="" element={<ProfileCard />} />
+          <Route path="favorites" element={<FavoritesList />} />
         </Route>
       </Route>
       <Route path="search" element={<SearchPage />} />
