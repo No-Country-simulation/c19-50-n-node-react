@@ -1,9 +1,9 @@
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const ProfileAvatar = ({ previewImage, className }) => {
-  const { user } = userStore((state) => state);
+  const { user } = useUserStore((state) => state);
 
   const src = previewImage || user.image;
 

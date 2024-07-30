@@ -16,10 +16,10 @@ import { Input } from './ui/input';
 import LoadingButton from './LoadingButton';
 import PasswordInput from './PasswordInput';
 import { loginSchema } from '@/lib/schemas/loginSchema';
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 const LoginForm = () => {
-  const { setUser } = userStore((state) => state);
+  const { setUser } = useUserStore((state) => state);
 
   const [isLoading, setIsLoading] = useState(false);
 

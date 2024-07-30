@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -18,7 +18,7 @@ import PasswordInput from './PasswordInput';
 import { registerSchema } from '@/lib/schemas/registerSchema';
 
 const RegisterForm = () => {
-  const { setUser } = userStore((state) => state);
+  const { setUser } = useUserStore((state) => state);
 
   const [isLoading, setIsLoading] = useState(false);
 
