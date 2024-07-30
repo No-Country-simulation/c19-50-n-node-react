@@ -17,7 +17,7 @@ const PostCardCarousel = ({ posts }) => {
         {posts.map((post) => (
           <CarouselItem
             key={post.id}
-            className="basis-1/2 md:basis-1/3 xl:basis-1/4"
+            className="xs:basis-1/2 md:basis-1/3 xl:basis-1/4 select-none"
           >
             <PostCard
               title={post.title}
