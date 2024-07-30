@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "title": "Ruta de los 7 Lagos en Bicicleta",
     "content": "Disfruta de una emocionante aventura en bicicleta a través de la espectacular Ruta de los 7 Lagos. Recorre paisajes increíbles, cruza ríos y descubre la belleza natural de las Sierras de Córdoba.",
     "category": "ciclismo",
@@ -8,9 +9,10 @@
     "latitude": -31.4201,
     "longitude": -64.1888,
     "address": "Ruta Provincial E55, Córdoba, Argentina",
-    "image": "https://example.com/images/ciclismo_ruta_7_lagos.jpg"
+    "image": "https://images.unsplash.com/photo-1534787238916-9ba6764efd4f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
+    "id": "2",
     "title": "Caminata al Cerro Champaquí",
     "content": "Únete a nosotros en una caminata desafiante hasta la cima del Cerro Champaquí, el punto más alto de las Sierras de Córdoba. Experimenta vistas panorámicas impresionantes y conecta con la naturaleza en esta inolvidable aventura de trekking.",
     "category": "trekking",
