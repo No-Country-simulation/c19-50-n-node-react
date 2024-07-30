@@ -20,6 +20,7 @@ const PostCardCarousel = ({ posts }) => {
             className="xs:basis-1/2 md:basis-1/3 xl:basis-1/4 select-none"
           >
             <PostCard
+              id={post.id}
               title={post.title}
               date={post.date}
               price={post.price}
