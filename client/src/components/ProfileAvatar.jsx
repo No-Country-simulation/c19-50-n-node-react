@@ -11,8 +11,8 @@ const ProfileAvatar = ({ previewImage, className }) => {
     <Avatar className={className}>
       {src && <AvatarImage src={src} className="object-cover" />}
       <AvatarFallback className="bg-gray-500 text-white font-medium">
-        {user?.name[0]}
-        {user?.lastName[0]}
+        {user.name?.[0] || ''}
+        {user.lastName?.[0] || ''}
       </AvatarFallback>
     </Avatar>
   );
