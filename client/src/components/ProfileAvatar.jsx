@@ -1,4 +1,4 @@
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

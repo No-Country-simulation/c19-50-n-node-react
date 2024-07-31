@@ -1,6 +1,6 @@
 import MaxWidthContainer from './MaxWidthContainer';
 
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 import { buttonVariants } from './ui/button';
 import SearchInput from './SearchInput';
 import { useMediaQuery } from 'react-responsive';

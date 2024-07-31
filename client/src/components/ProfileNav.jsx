@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import NavIconLink from './NavIconLink';
 import { Home, Heart } from 'lucide-react';
 import { Button } from './ui/button';
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 const LINKS = [
   {

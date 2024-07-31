@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -16,6 +16,7 @@ import LoadingButton from './LoadingButton';
 import PasswordInput from './PasswordInput';
 
 import { registerSchema } from '@/lib/schemas/registerSchema';
+import { register } from '@/services/auth.service';
 
 const RegisterForm = () => {
   const { setUser } = useUserStore((state) => state);
@@ -33,14 +34,19 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     setIsLoading(true);
-    setUser({
+    const result = await register({
       email: values.email,
       name: values.name,
       lastName: values.lastName,
-      token: 'token',
+      password: values.password,
     });
+
+    if (result.ok) {
+      setUser(result.data);
+    }
+
     setIsLoading(false);
   };
 

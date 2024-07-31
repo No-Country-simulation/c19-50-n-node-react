@@ -16,7 +16,7 @@ import { Input } from './ui/input';
 import LoadingButton from './LoadingButton';
 import PasswordInput from './PasswordInput';
 import { loginSchema } from '@/lib/schemas/loginSchema';
-import { useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 const LoginForm = () => {
   const { setUser } = useUserStore((state) => state);
