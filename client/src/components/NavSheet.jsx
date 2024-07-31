@@ -1,12 +1,12 @@
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 import { Link } from 'react-router-dom';
 
 import { Menu } from 'lucide-react';
 
 const NavSheet = () => {
-  const { user, removeUser } = userStore((state) => state);
+  const { user, removeUser } = useUserStore((state) => state);
 
   return (
     <Sheet>

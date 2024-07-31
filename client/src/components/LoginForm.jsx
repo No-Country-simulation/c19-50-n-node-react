@@ -16,10 +16,11 @@ import { Input } from './ui/input';
 import LoadingButton from './LoadingButton';
 import PasswordInput from './PasswordInput';
 import { loginSchema } from '@/lib/schemas/loginSchema';
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
+import { login } from '@/services/auth.service';
 
 const LoginForm = () => {
-  const { setUser } = userStore((state) => state);
+  const { setUser } = useUserStore((state) => state);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,12 +34,12 @@ const LoginForm = () => {
 
   const onSubmit = async (values) => {
     setIsLoading(true);
-    setUser({
-      email: values.email,
-      name: 'name',
-      lastName: 'lastName',
-      token: 'token',
-    });
+
+    const result = await login(values);
+    if (result.ok) {
+      setUser(result.data);
+    }
+
     setIsLoading(false);
   };
 

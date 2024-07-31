@@ -1,13 +1,13 @@
 import MaxWidthContainer from './MaxWidthContainer';
 
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 import { buttonVariants } from './ui/button';
 import SearchInput from './SearchInput';
 import { useMediaQuery } from 'react-responsive';
 import NavSheet from './NavSheet';
 
 const Nav = () => {
-  const { user } = userStore((state) => state);
+  const { user } = useUserStore((state) => state);
 
   const bigScreen = useMediaQuery({
     query: '(min-width: 768px)',

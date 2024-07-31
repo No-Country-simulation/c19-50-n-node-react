@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import NavIconLink from './NavIconLink';
 import { Home, Heart } from 'lucide-react';
 import { Button } from './ui/button';
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 const LINKS = [
   {
@@ -22,7 +22,7 @@ const LINKS = [
 ];
 
 const ProfileNav = () => {
-  const { removeUser } = userStore((state) => state);
+  const { removeUser } = useUserStore((state) => state);
 
   const { pathname } = useLocation();
 

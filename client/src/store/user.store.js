@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export const userStore = create(
+export const useUserStore = create(
   persist(
     (set) => ({
       user: null,
       token: null,
-      setUser: ({ email, name, lastName, token }) =>
+      setUser: ({ email, name, lastName, token, role }) =>
         set({
-          user: { email, name, lastName },
+          user: { email, name, lastName, role },
           token,
         }),
       removeUser: () => set({ user: null, token: null }),

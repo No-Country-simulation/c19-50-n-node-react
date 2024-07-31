@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { userStore } from '@/store/user';
+import { useUserStore } from '@/store/user.store';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,7 +23,7 @@ import { editProfileSchema } from '@/lib/schemas/editProfileSchema';
 import { cn } from '@/lib/utils';
 
 const ProfileEditForm = () => {
-  const { user, updateUser } = userStore((state) => state);
+  const { user, updateUser } = useUserStore((state) => state);
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
