@@ -18,4 +18,15 @@ export const createPost = async (data) => {
     console.log(error);
     return { ok: false, data: 'Hubo un error' };
   }
-}
+};
+
+export const fetchPost = async (id) => {
+  try {
+    const response = await axios.get(`/posts/${id}`);
+    console.log(response.data);
+    return { ok: true, data: response.data };
+  } catch (error) {
+    console.log(error);
+    return { ok: false, data: 'Hubo un error' };
+  }
+};

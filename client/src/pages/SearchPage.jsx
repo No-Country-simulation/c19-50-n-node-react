@@ -36,7 +36,7 @@ const SearchPage = () => {
             </div>
           )}
           <div className="max-md:hidden">
-            <div className="bg-secondary rounded-sm w-[280px] h-[280px] sticky top-[145px]" />
+            <div className="bg-gray-500 rounded-sm w-[280px] h-[280px] sticky top-[145px]" />
           </div>
         </div>
       </MaxWidthContainer>
