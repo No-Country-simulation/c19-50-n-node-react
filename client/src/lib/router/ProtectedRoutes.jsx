@@ -1,10 +1,11 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { useUserStore } from '@/store/user.store';
 
-const ProtectedRoutes = ({ needsAuth = false }) => {
+const ProtectedRoutes = ({ needsAuth = false, role = [] }) => {
   const { user } = useUserStore((state) => state);
 
-  if (needsAuth) return user ? <Outlet /> : <Navigate to="/login" />;
+  const hasRole = role.includes(user?.role);
+  if (needsAuth) return user && hasRole ? <Outlet /> : <Navigate to="/login" />;
   if (!needsAuth) return user ? <Navigate to="/" /> : <Outlet />;
 };
 
