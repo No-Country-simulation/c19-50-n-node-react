@@ -2,11 +2,14 @@ import MaxWidthContainer from '@/components/MaxWidthContainer';
 import PostDetails from '@/components/PostDetails';
 import Spinner from '@/components/Spinner';
 import useDebounce from '@/hooks/useDebounce';
+import { createFavorite, deleteFavorite } from '@/services/favorite.service';
 import { fetchPost } from '@/services/post.service';
+import { useUserStore } from '@/store/user.store';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const PostPage = () => {
+  const { user } = useUserStore((state) => state);
   const params = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -14,12 +17,15 @@ const PostPage = () => {
   // const [favorites, setFavorites] = useState(true);
   const [post, setPost] = useState(null);
 
-  // console.log({ params });
   const [debounceValue] = useDebounce(isFavorite);
 
-  useEffect(() => {
-    console.log({ debounceValue });
-  }, [debounceValue]);
+  // useEffect(() => {
+  //   if (debounceValue !== null) {
+  //     if (debounceValue) createFavorite();
+  //     if (!debounceValue) deleteFavorite()
+  //   }
+  //   console.log({ debounceValue });
+  // }, [debounceValue]);
 
   useEffect(() => {
     (async () => {
