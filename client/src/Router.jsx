@@ -8,6 +8,7 @@ import PostPage from './pages/PostPage';
 import ProtectedRoutes from './lib/router/ProtectedRoutes';
 import ProfileCard from './components/ProfileCard';
 import FavoritesList from './components/FavoritesList';
+import AdminPostPage from './pages/AdminPostPage';
 
 const Router = () => {
   return (
@@ -17,10 +18,13 @@ const Router = () => {
         <Route path="login" element={<AuthPage />} />
         <Route path="register" element={<AuthPage />} />
       </Route>
-      <Route element={<ProtectedRoutes needsAuth />}>
+      <Route element={<ProtectedRoutes needsAuth={false} />}>
         <Route path="profile" element={<ProfilePage />}>
           <Route path="" element={<ProfileCard />} />
           <Route path="favorites" element={<FavoritesList />} />
+        </Route>
+        <Route path="admin">
+          <Route path="posts" index element={<AdminPostPage />} />
         </Route>
       </Route>
       <Route path="search" element={<SearchPage />} />
