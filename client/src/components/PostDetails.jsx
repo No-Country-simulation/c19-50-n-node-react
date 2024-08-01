@@ -2,8 +2,18 @@ import { Heart } from 'lucide-react';
 import { Separator } from './ui/separator';
 import { formatPrice } from '@/lib/formatPrice';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
-const PostDetails = ({ title, date, image, address, price, content }) => {
+const PostDetails = ({
+  title,
+  date,
+  image,
+  address,
+  price,
+  content,
+  isFavorite,
+  handleFavorite,
+}) => {
   return (
     <div>
       <p>{date}</p>
@@ -13,9 +23,18 @@ const PostDetails = ({ title, date, image, address, price, content }) => {
         <div className="flex flex-1 justify-center bg-gray-500 overflow-hidden rounded-sm max-h-[444px] ">
           <img src={image} alt="image" className="object-cover" />
         </div>
-        <div className="w-[320px] max-md:w-full p-6 flex flex-col gap-y-4 rounded-sm border bg-secondary">
+        <div className="w-[320px] max-md:w-full p-6 flex flex-col gap-y-4 rounded-sm border bg-secondary select-none">
           <div className="flex justify-end">
-            <Heart />
+            <div
+              onClick={handleFavorite}
+              className={cn(
+                'cursor-pointer flex justify-center',
+                isFavorite && 'text-red-heart',
+                !isFavorite && 'hover:text-gray-500 '
+              )}
+            >
+              <Heart strokeWidth={2.5} fill={isFavorite ? '#ff3944' : 'none'} />
+            </div>
           </div>
           <div>
             <p className="text-sm">Dirección:</p>

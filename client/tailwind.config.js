@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        'red-heart': '#ff3944',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
