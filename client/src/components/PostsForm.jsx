@@ -42,14 +42,19 @@ Subir una
 import { useState, useRef, useEffect } from 'react'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { fetchCategories } from '@/services/category.service'
 
 export const PostsForm = () => {
 
-  const fileImage = useRef(null)
+  const [image, setImage] = useState(null)
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    console.dir(fileImage.current)
-  }, [fileImage])
+    fetchCategories().then((data) => {
+      if (!data.ok) return setCategories([])
+      setCategories(data.data)
+    })
+  }, [])
 
   const [post, setPost] = useState({
     title: "",
@@ -87,13 +92,15 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="category">Categoría</label>
           <select
+          onChange={(e) => setPost({ ...post, category: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}          
           name="category" id="category">
-            <option value="1">Categoría 1</option>
-            <option value="2">Categoría 2</option>
-            <option value="3">Categoría 3</option>
+            <option value="">Selecciona una categoría</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
           </select>
 
         </div>
@@ -102,7 +109,6 @@ export const PostsForm = () => {
           <input
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}          
           type="number" id="price" name="price" />
         </div>
@@ -111,7 +117,6 @@ export const PostsForm = () => {
           <input
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}
           type="date" id="date" name="date" />
         </div>
@@ -120,7 +125,6 @@ export const PostsForm = () => {
           <input
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}          
           type="number" id="latitude" name="latitude" />
         </div>
@@ -129,7 +133,6 @@ export const PostsForm = () => {
           <input
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}          
           type="number" id="longitude" name="longitude" /> 
         </div>
@@ -138,7 +141,6 @@ export const PostsForm = () => {
           <input
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}          
           type="text" id="address" name="address" />
         </div>
@@ -146,12 +148,13 @@ export const PostsForm = () => {
           <label
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-
           )}                    
           htmlFor="image">
-            {fileImage.current?.files?.length > 0 ? fileImage.current?.files[0].name : 'Subir una imagen'}
+            {image?.name || 'Subir una imagen'}
           </label>
-          <input ref={fileImage} onChange={(e)=> console.log(e)} className='hidden' type="file" id="image" name="image" />
+          <input  onChange={
+            (e)=> setImage(e.target.files[0])
+            } className='hidden' type="file" id="image" name="image" />
         </div>
           <div>
           <Button className='mt-4 w-full' type="submit">Enviar</Button>
