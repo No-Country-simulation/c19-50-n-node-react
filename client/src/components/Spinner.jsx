@@ -1,9 +1,13 @@
 import { cn } from '@/lib/utils';
 import { LoaderCircle } from 'lucide-react';
 
-const Spinner = ({ className }) => {
+const Spinner = ({ size = 16, strokeWidth, className }) => {
   return (
-    <LoaderCircle className={cn('animate-spin h-5 w-5 absolute', className)} />
+    <LoaderCircle
+      size={size}
+      strokeWidth={strokeWidth}
+      className={cn('animate-spin absolute', className)}
+    />
   );
 };
 
