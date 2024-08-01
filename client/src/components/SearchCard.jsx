@@ -10,14 +10,14 @@ const SearchCard = ({ id, title, date, price, category, image }) => {
         <img
           src={image}
           alt="image"
-          className="object-cover h-[180px] w-[180px] rounded-sm"
+          className="h-[180px] w-[180px] max-sm:h-[120px] max-sm:w-[120px] rounded-sm object-cover "
         />
-        <div className="overflow-hidden flex flex-col">
+        <div className="overflow-hidden flex flex-col flex-1">
           <p className="text-sm truncate">{date}</p>
-          <p className="text-xl font-bold truncate">{title}</p>
+          <p className="text-xl font-bold line-clamp-1">{title}</p>
           <p className="text-xl font-bold truncate">{formatPrice(price)}</p>
-          <p className="mt-auto">
-            <Badge>{category}</Badge>
+          <p className="mt-auto max-xs:hidden">
+            <Badge>{category.name}</Badge>
           </p>
         </div>
       </Link>
