@@ -18,7 +18,7 @@ const Router = () => {
         <Route path="login" element={<AuthPage />} />
         <Route path="register" element={<AuthPage />} />
       </Route>
-      <Route element={<ProtectedRoutes needsAuth={false} />}>
+      <Route element={<ProtectedRoutes needsAuth />}>
         <Route path="profile" element={<ProfilePage />}>
           <Route path="" element={<ProfileCard />} />
           <Route path="favorites" element={<FavoritesList />} />

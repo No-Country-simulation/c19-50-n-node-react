@@ -39,14 +39,14 @@ string($binary)
 Subir una
  */
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { fetchCategories } from '@/services/category.service'
+import { createPost } from '@/services/post.service'
 
 export const PostsForm = () => {
 
-  const [image, setImage] = useState(null)
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -65,8 +65,26 @@ export const PostsForm = () => {
     latitude: "",
     longitude: "",
     address: "",
-    image: "",
+    image: {}
   })
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('title', post.title)
+    formData.append('content', post.content)
+    formData.append('category', post.category)
+    formData.append('price', post.price)
+    formData.append('date', post.date)
+    formData.append('latitude', post.latitude)
+    formData.append('longitude', post.longitude)
+    formData.append('address', post.address)
+    formData.append('image', post.image)
+
+    await createPost(formData)
+
+  }
 
 
   return (
@@ -75,6 +93,7 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="title">Título</label>
           <input
+          onChange={(e) => setPost({ ...post, title: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}
@@ -83,10 +102,11 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="content">Contenido</label>
           <textarea
-        className={cn(
-          "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          
-        )}
+          onChange={(e) => setPost({ ...post, content: e.target.value })}
+          className={cn(
+            "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            
+          )}
           id="content" name="content" />
         </div>
         <div>
@@ -107,6 +127,7 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="price">Precio</label>
           <input
+          onChange={(e) => setPost({ ...post, price: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}          
@@ -115,6 +136,7 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="date">Fecha</label>
           <input
+          onChange={(e) => setPost({ ...post, date: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}
@@ -123,6 +145,9 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="latitude">Latitud</label>
           <input
+          min={-90}
+          max={90}
+          onChange={(e) => setPost({ ...post, latitude: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}          
@@ -131,6 +156,9 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="longitude">Longitud</label>
           <input
+          min={-180}
+          max={180}
+          onChange={(e) => setPost({ ...post, longitude: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}          
@@ -139,6 +167,7 @@ export const PostsForm = () => {
         <div>
           <label htmlFor="address">Dirección</label>
           <input
+          onChange={(e) => setPost({ ...post, address: e.target.value })}
           className={cn(
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}          
@@ -150,14 +179,16 @@ export const PostsForm = () => {
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
           )}                    
           htmlFor="image">
-            {image?.name || 'Subir una imagen'}
+            {post.image?.name || 'Subir una imagen'}
           </label>
           <input  onChange={
-            (e)=> setImage(e.target.files[0])
+            (e)=> setPost({ ...post, image: e.target.files[0] })
             } className='hidden' type="file" id="image" name="image" />
         </div>
           <div>
-          <Button className='mt-4 w-full' type="submit">Enviar</Button>
+          <Button
+          onClick={handleSubmit}
+          className='mt-4 w-full' type="submit">Enviar</Button>
           </div>
       </form>
     </>
