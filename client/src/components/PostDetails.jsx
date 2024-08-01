@@ -9,11 +9,11 @@ const PostDetails = ({ title, date, image, address, price, content }) => {
       <p>{date}</p>
       <p className="text-3xl font-bold truncate">{title}</p>
       <Separator className="mt-3 mb-4" />
-      <div className="flex gap-6">
+      <div className="flex gap-6 max-md:flex-col">
         <div className="flex flex-1 justify-center bg-gray-500 overflow-hidden rounded-sm max-h-[444px] ">
           <img src={image} alt="image" className="object-cover" />
         </div>
-        <div className="w-[320px] p-6 flex flex-col gap-y-4 rounded-sm border bg-secondary">
+        <div className="w-[320px] max-md:w-full p-6 flex flex-col gap-y-4 rounded-sm border bg-secondary">
           <div className="flex justify-end">
             <Heart />
           </div>
@@ -25,7 +25,7 @@ const PostDetails = ({ title, date, image, address, price, content }) => {
             <p className="text-sm">Precio:</p>
             <p className="text-lg font-semibold">{formatPrice(price)}</p>
           </div>
-          <Button className="mt-auto">Reservar</Button>
+          <Button className="mt-auto max-md:mt-6">Reservar</Button>
         </div>
       </div>
       <div className="mt-10">
