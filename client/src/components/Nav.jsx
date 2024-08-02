@@ -19,7 +19,7 @@ const Nav = () => {
       <MaxWidthContainer>
         <nav className="flex justify-between items-center gap-3 max-md:gap-10">
           <Link className="font-bold text-xl" to="/">
-            <img src="logo-cordoba.png" alt="" className="w-[70px]" />
+            <img src="/logo-cordoba.png" alt="" className="w-[70px]" />
           </Link>
           <SearchInput />
           {bigScreen ? (

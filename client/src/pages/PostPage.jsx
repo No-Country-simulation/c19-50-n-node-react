@@ -24,6 +24,7 @@ const PostPage = () => {
   const [isFavorite, setIsFavorite] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [questionIsLoading, setQuestionIsLoading] = useState(false);
 
   const [debounceValue] = useDebounce(isFavorite);
 
@@ -62,7 +63,6 @@ const PostPage = () => {
         console.log(postQuestions.data);
         setQuestions(postQuestions.data);
       }
-
       setIsLoading(false);
     })();
   }, []);
@@ -76,7 +76,13 @@ const PostPage = () => {
     })();
   }, []);
 
-  const handleAskQuestion = () => {};
+  const handleAskQuestion = (data) => {
+    setQuestionIsLoading(true);
+    setTimeout(() => {
+      setQuestions((prevState) => [...prevState, data]);
+      setQuestionIsLoading(false);
+    }, 3000);
+  };
 
   return (
     <div className="min-h-screen py-20">
@@ -92,6 +98,7 @@ const PostPage = () => {
             questions={questions}
             handleFavorite={() => setIsFavorite((prevState) => !prevState)}
             handleAskQuestion={handleAskQuestion}
+            questionIsLoading={questionIsLoading}
           />
         </MaxWidthContainer>
       )}

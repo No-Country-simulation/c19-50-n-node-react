@@ -3,8 +3,10 @@ import { Separator } from './ui/separator';
 import { formatPrice } from '@/lib/formatPrice';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
+import QuestionInput from './QuestionInput';
 
 const PostDetails = ({
+  id,
   title,
   date,
   image,
@@ -14,6 +16,8 @@ const PostDetails = ({
   isFavorite,
   questions,
   handleFavorite,
+  handleAskQuestion,
+  questionIsLoading,
 }) => {
   return (
     <div>
@@ -55,6 +59,13 @@ const PostDetails = ({
       <Separator className="mt-10 mb-10" />
       <div className="mt-10">
         <p className="text-xl font-bold">Preguntas</p>
+        <div className="mt-10">
+          <QuestionInput
+            handleAskQuestion={handleAskQuestion}
+            questionIsLoading={questionIsLoading}
+            postId={id}
+          />
+        </div>
         <div className="mt-10">
           {questions.length === 0 ? (
             <p className="text-center">No se hicieron preguntas todavia...</p>
