@@ -2,7 +2,8 @@ import { axios } from '@/lib/axios';
 
 export const createFavorite = async ({ userId, postId }) => {
   try {
-    await axios.post('/favorites', { userId, postId });
+    const response = await axios.post('/favorites', { userId, postId });
+    console.log({ response });
     // return { ok: true, data: response.data };
   } catch (error) {
     console.log(error);
@@ -12,7 +13,10 @@ export const createFavorite = async ({ userId, postId }) => {
 
 export const deleteFavorite = async ({ userId, postId }) => {
   try {
-    await axios.delete('/favorites', { userId, postId });
+    const response = await axios.delete(
+      `/favorites?userId=${userId}&postId=${postId}`
+    );
+    console.log({ response });
     // return { ok: true, data: response.data };
   } catch (error) {
     console.log(error);

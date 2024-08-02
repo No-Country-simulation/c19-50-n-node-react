@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 const PostPage = () => {
   const { user } = useUserStore((state) => state);
   const params = useParams();
+  console.log({ user });
 
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(null);
@@ -19,19 +20,22 @@ const PostPage = () => {
 
   const [debounceValue] = useDebounce(isFavorite);
 
-  // useEffect(() => {
-  //   if (debounceValue !== null) {
-  //     if (debounceValue) createFavorite();
-  //     if (!debounceValue) deleteFavorite()
-  //   }
-  //   console.log({ debounceValue });
-  // }, [debounceValue]);
+  useEffect(() => {
+    if (debounceValue !== null) {
+      const data = { userId: user.id, postId: params.id };
+      if (debounceValue) createFavorite(data);
+      if (!debounceValue) {
+        console.log('hola');
+        deleteFavorite(data);
+      }
+    }
+  }, [debounceValue]);
 
   useEffect(() => {
     (async () => {
-      const result = await fetchPost(params.id);
+      const postResult = await fetchPost(params.id);
+      if (postResult.ok) setPost(postResult.data);
 
-      if (result.ok) setPost(result.data);
       setIsLoading(false);
     })();
   }, []);
