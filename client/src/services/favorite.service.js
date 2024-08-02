@@ -1,5 +1,15 @@
 import { axios } from '@/lib/axios';
 
+export const fetchFavorites = async (userId) => {
+  try {
+    const response = await axios.get(`/favorites/by-user/${userId}`);
+    return { ok: true, data: response.data };
+  } catch (error) {
+    console.log(error);
+    return { ok: false, data: 'Hubo un error' };
+  }
+};
+
 export const createFavorite = async ({ userId, postId }) => {
   try {
     await axios.post('/favorites', { userId, postId });
