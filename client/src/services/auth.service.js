@@ -1,4 +1,5 @@
 import { axios } from '@/lib/axios';
+import { jwtDecode } from 'jwt-decode';
 
 export const register = async (userData) => {
   try {
@@ -10,8 +11,6 @@ export const register = async (userData) => {
       image: '',
     });
 
-    console.log(response);
-
     return {
       ok: true,
       data: {
@@ -20,6 +19,7 @@ export const register = async (userData) => {
         lastName: response.data.lastName,
         role: response.data.roles[0],
         token: response.data.token,
+        id: jwtDecode(response.data.token).id,
       },
     };
   } catch (error) {
@@ -35,8 +35,6 @@ export const login = async (userData) => {
       password: userData.password,
     });
 
-    console.log(response);
-
     return {
       ok: true,
       data: {
@@ -45,6 +43,7 @@ export const login = async (userData) => {
         lastName: response.data.lastName,
         role: response.data.roles[0],
         token: response.data.token,
+        id: jwtDecode(response.data.token).id,
       },
     };
   } catch (error) {
