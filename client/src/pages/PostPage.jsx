@@ -8,6 +8,7 @@ import {
   fetchFavoritesByPostId,
 } from '@/services/favorite.service';
 import { fetchPost } from '@/services/post.service';
+import { fetchQuestionsByPostId } from '@/services/question.service';
 import { useUserStore } from '@/store/user.store';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,10 +17,13 @@ const PostPage = () => {
   const { user } = useUserStore((state) => state);
   const params = useParams();
 
+  console.log({ user });
+
   const [isLoading, setIsLoading] = useState(true);
+  const [post, setPost] = useState(null);
   const [isFavorite, setIsFavorite] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const [post, setPost] = useState(null);
+  const [questions, setQuestions] = useState([]);
 
   const [debounceValue] = useDebounce(isFavorite);
 
@@ -52,6 +56,13 @@ const PostPage = () => {
         setIsFavorite(isFavorite);
       }
 
+      const postQuestions = await fetchQuestionsByPostId(params.id);
+
+      if (postQuestions.ok) {
+        console.log(postQuestions.data);
+        setQuestions(postQuestions.data);
+      }
+
       setIsLoading(false);
     })();
   }, []);
@@ -65,6 +76,8 @@ const PostPage = () => {
     })();
   }, []);
 
+  const handleAskQuestion = () => {};
+
   return (
     <div className="min-h-screen py-20">
       {isLoading ? (
@@ -76,7 +89,9 @@ const PostPage = () => {
           <PostDetails
             {...post}
             isFavorite={isFavorite}
+            questions={questions}
             handleFavorite={() => setIsFavorite((prevState) => !prevState)}
+            handleAskQuestion={handleAskQuestion}
           />
         </MaxWidthContainer>
       )}

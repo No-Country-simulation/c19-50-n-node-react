@@ -23,7 +23,6 @@ export const createPost = async (data) => {
 export const fetchPost = async (id) => {
   try {
     const response = await axios.get(`/posts/${id}`);
-    console.log(response.data);
     return { ok: true, data: response.data };
   } catch (error) {
     console.log(error);
