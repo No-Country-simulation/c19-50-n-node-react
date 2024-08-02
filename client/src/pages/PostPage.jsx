@@ -2,34 +2,60 @@ import MaxWidthContainer from '@/components/MaxWidthContainer';
 import PostDetails from '@/components/PostDetails';
 import Spinner from '@/components/Spinner';
 import useDebounce from '@/hooks/useDebounce';
-import { createFavorite, deleteFavorite } from '@/services/favorite.service';
+import {
+  createFavorite,
+  deleteFavorite,
+  fetchFavoritesByPostId,
+} from '@/services/favorite.service';
 import { fetchPost } from '@/services/post.service';
 import { useUserStore } from '@/store/user.store';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const PostPage = () => {
   const { user } = useUserStore((state) => state);
   const params = useParams();
-  console.log({ user });
 
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(null);
-  // const [favorites, setFavorites] = useState(true);
+  const [favorites, setFavorites] = useState(true);
   const [post, setPost] = useState(null);
 
   const [debounceValue] = useDebounce(isFavorite);
 
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
     if (debounceValue !== null) {
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
+
       const data = { userId: user.id, postId: params.id };
       if (debounceValue) createFavorite(data);
-      if (!debounceValue) {
-        console.log('hola');
-        deleteFavorite(data);
-      }
+      if (!debounceValue) deleteFavorite(data);
     }
   }, [debounceValue]);
+
+  useEffect(() => {
+    (async () => {
+      const postResult = await fetchPost(params.id);
+      if (postResult.ok) setPost(postResult.data);
+      const postFavorites = await fetchFavoritesByPostId(params.id);
+
+      if (postFavorites.ok) {
+        const { data } = postFavorites;
+
+        const isFavorite =
+          data.findIndex((post) => post.userId === user.id) >= 0;
+        setFavorites(data);
+        setIsFavorite(isFavorite);
+      }
+
+      setIsLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
