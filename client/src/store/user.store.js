@@ -6,9 +6,9 @@ export const useUserStore = create(
     (set) => ({
       user: null,
       token: null,
-      setUser: ({ email, name, lastName, token, role }) =>
+      setUser: ({ id, email, name, lastName, token, role }) =>
         set({
-          user: { email, name, lastName, role },
+          user: { id, email, name, lastName, role },
           token,
         }),
       removeUser: () => set({ user: null, token: null }),
