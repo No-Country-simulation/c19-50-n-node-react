@@ -18,7 +18,7 @@ const PostPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(null);
-  const [favorites, setFavorites] = useState(true);
+  const [favorites, setFavorites] = useState([]);
   const [post, setPost] = useState(null);
 
   const [debounceValue] = useDebounce(isFavorite);
@@ -46,7 +46,6 @@ const PostPage = () => {
 
       if (postFavorites.ok) {
         const { data } = postFavorites;
-
         const isFavorite =
           data.findIndex((post) => post.userId === user.id) >= 0;
         setFavorites(data);
