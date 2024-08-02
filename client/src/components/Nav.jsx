@@ -5,6 +5,7 @@ import { buttonVariants } from './ui/button';
 import SearchInput from './SearchInput';
 import { useMediaQuery } from 'react-responsive';
 import NavSheet from './NavSheet';
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
   const { user } = useUserStore((state) => state);
@@ -17,40 +18,40 @@ const Nav = () => {
     <div className="z-10 fixed w-full glassmorphism py-3">
       <MaxWidthContainer>
         <nav className="flex justify-between items-center gap-3 max-md:gap-10">
-          <a className="font-bold text-xl" href="/">
-            {bigScreen ? 'Descubre Cordoba' : 'DC'}
-          </a>
+          <Link className="font-bold text-xl" to="/">
+            <img src="logo-cordoba.png" alt="" className="w-[70px]" />
+          </Link>
           <SearchInput />
           {bigScreen ? (
             <ul className="flex gap-x-3 items-center">
               {!user ? (
                 <>
                   <li>
-                    <a
-                      href="/login"
+                    <Link
+                      to="/login"
                       className={buttonVariants({ variant: 'outline' })}
                     >
                       Ingresar
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/register"
+                    <Link
+                      to="/register"
                       className={buttonVariants({ variant: 'default' })}
                     >
                       Crear cuenta
-                    </a>
+                    </Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li>
-                    <a
-                      href="/profile"
+                    <Link
+                      to="/profile"
                       className={buttonVariants({ variant: 'outline' })}
                     >
                       Mi perfil
-                    </a>
+                    </Link>
                   </li>
                 </>
               )}
