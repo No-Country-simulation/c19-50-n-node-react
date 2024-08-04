@@ -3,8 +3,10 @@ import { Separator } from './ui/separator';
 import { formatPrice } from '@/lib/formatPrice';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
+import QuestionInput from './QuestionInput';
 
 const PostDetails = ({
+  id,
   title,
   date,
   image,
@@ -12,7 +14,10 @@ const PostDetails = ({
   price,
   content,
   isFavorite,
+  questions,
   handleFavorite,
+  handleAskQuestion,
+  questionIsLoading,
 }) => {
   return (
     <div>
@@ -54,7 +59,36 @@ const PostDetails = ({
       <Separator className="mt-10 mb-10" />
       <div className="mt-10">
         <p className="text-xl font-bold">Preguntas</p>
-        <p className="text-center mt-10">No se hicieron preguntas todavia...</p>
+        <div className="mt-10">
+          <QuestionInput
+            handleAskQuestion={handleAskQuestion}
+            questionIsLoading={questionIsLoading}
+            postId={id}
+          />
+        </div>
+        <div className="mt-10">
+          {questions.length === 0 ? (
+            <p className="text-center">No se hicieron preguntas todavia...</p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {questions.map((question) => (
+                <div
+                  key={question.id}
+                  className="rounded-sm bg-secondary border p-3"
+                >
+                  <p className="font-bold">
+                    {question.user?.firstName || ''}{' '}
+                    {question.user?.lastName || ''}:
+                  </p>
+                  <p className="text-lg">{question.content}</p>
+                  <p className="text-sm mt-6 text-center">
+                    - Todavía no hubo una respuesta -
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
